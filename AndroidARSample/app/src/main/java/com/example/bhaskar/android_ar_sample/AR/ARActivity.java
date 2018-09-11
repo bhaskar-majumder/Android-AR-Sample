@@ -92,11 +92,11 @@ public class ARActivity extends AppCompatActivity {
                     node.setOnTouchListener(onTransformableNodeTouchListener);
                     transformableNode = node;
 
-                    configureLeftRightImageButtons();
+                    configureLeftRightDeleteImageButtons();
                 });
     }
 
-    private void configureLeftRightImageButtons(){
+    private void configureLeftRightDeleteImageButtons(){
         ImageButton leftButton = findViewById(R.id.button_moveLeft);
         leftButton.setVisibility(View.VISIBLE);
         leftButton.setImageResource(R.drawable.left_arrow);
@@ -119,6 +119,19 @@ public class ARActivity extends AppCompatActivity {
                 if(transformableNode != null) {
                     //float angle = transformableNode.getHorizontalRotationAngle();
                     transformableNode.rotateHorizontally(1);
+                }
+            }
+        });
+
+        ImageButton deleteButton = findViewById(R.id.button_delete);
+        deleteButton.setVisibility(View.VISIBLE);
+        deleteButton.setImageResource(R.drawable.delete_node);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(transformableNode != null) {
+                    transformableNode.getParent().removeChild(transformableNode);
+                    transformableNode = null;
                 }
             }
         });
