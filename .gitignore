@@ -22,3 +22,5 @@ AndroidARSample/local.properties
 
 # Log Files
 AndroidARSample/*.log
+
+AndroidARSample/.idea
