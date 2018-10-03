@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.bhaskar.android_ar_sample.Logger;
 import com.example.bhaskar.android_ar_sample.R;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
@@ -35,6 +36,7 @@ import static java.lang.Thread.sleep;
 public class ARActivity extends AppCompatActivity {
     private static final String TAG = ARActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
+    private static final float ROTATION_ANGLE = 1;
     private ArFragment arFragment;
     private ModelRenderable renderable;
     private TransformableNodeEx transformableNode;
@@ -42,7 +44,11 @@ public class ARActivity extends AppCompatActivity {
     private Node.OnTouchListener onTransformableNodeTouchListener = new Node.OnTouchListener() {
         @Override
         public boolean onTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
-            transformableNode = (TransformableNodeEx)hitTestResult.getNode();
+            Logger.getInstance().log(motionEvent.toString());
+            TransformableNodeEx node = (TransformableNodeEx)hitTestResult.getNode();
+            if(node != null) {
+                transformableNode = node;
+            }
             return false;
         }
     };
@@ -104,8 +110,8 @@ public class ARActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(transformableNode != null) {
-                    //float angle = transformableNode.getHorizontalRotationAngle();
-                    transformableNode.rotateHorizontally(-1);
+                    transformableNode.rotateHorizontally(ROTATION_ANGLE * -1);
+                    Logger.getInstance().log("Left rotation - Current angle = " + Float.toString(transformableNode.getHorizontalRotationAngle()));
                 }
             }
         });
@@ -117,8 +123,8 @@ public class ARActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(transformableNode != null) {
-                    //float angle = transformableNode.getHorizontalRotationAngle();
-                    transformableNode.rotateHorizontally(1);
+                    transformableNode.rotateHorizontally(ROTATION_ANGLE);
+                    Logger.getInstance().log("Right rotation - Current angle = " + Float.toString(transformableNode.getHorizontalRotationAngle()));
                 }
             }
         });
