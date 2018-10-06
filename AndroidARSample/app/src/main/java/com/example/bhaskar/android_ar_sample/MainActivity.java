@@ -3,18 +3,25 @@ package com.example.bhaskar.android_ar_sample;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bhaskar.android_ar_sample.AR.ARActivity;
+import com.example.bhaskar.android_ar_sample.preview_model.view.ModelActivity;
 
+import org.andresoviedo.util.android.ContentUtils;
+
+import java.io.IOException;
 import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +56,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //startARActivity(0);
-                Toast.makeText(MainActivity.this, "Not implemented", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "Not implemented", Toast.LENGTH_LONG).show();
+                Uri uri;
+                ContentUtils.provideAssets(MainActivity.this);
+                uri = Uri.parse("assets://" + getPackageName() + "/models/andy.obj");
+                launchModelRendererActivity(uri);
             }
         });
 
@@ -89,5 +100,13 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(MainActivity.this, "Go to application setting and give the permissions required.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void launchModelRendererActivity(Uri uri) {
+        Intent intent = new Intent(getApplicationContext(), ModelActivity.class);
+        intent.putExtra("uri", uri.toString());
+        intent.putExtra("immersiveMode", "true");
+
+        startActivity(intent);
     }
 }

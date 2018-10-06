@@ -27,6 +27,13 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="locked"
         </activity>
+        <activity
+            android:name="com.example.bhaskar.android_ar_sample.preview_model.view.ModelActivity"
+            android:label="@string/title_activity_model"
+            android:parentActivityName="com.example.bhaskar.android_ar_sample.MainActivity" >
+
+            <!-- android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" -->
+        </activity>
     </application>
 
 </manifest>
