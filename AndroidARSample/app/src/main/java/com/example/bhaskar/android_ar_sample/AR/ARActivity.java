@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.bhaskar.android_ar_sample.Logger;
 import com.example.bhaskar.android_ar_sample.R;
+import com.example.bhaskar.android_ar_sample.preview_model.view.ModelActivity;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
@@ -31,12 +33,14 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.RotationController;
 import com.google.ar.sceneform.ux.TransformableNode;
 
+import org.andresoviedo.util.android.ContentUtils;
+
 import static java.lang.Thread.sleep;
 
 public class ARActivity extends AppCompatActivity {
     private static final String TAG = ARActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    private static final float ROTATION_ANGLE = 1;
+    private static final float ROTATION_ANGLE = 5;
     private ArFragment arFragment;
     private ModelRenderable renderable;
     private TransformableNodeEx transformableNode;
@@ -66,6 +70,7 @@ public class ARActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int resourceId = intent.getExtras().getInt("RESOURCE_ID");
+        final String objectFilePath = intent.getExtras().getString("OBJECT_FILE_PATH");
 
         ModelRenderable.builder()
                 .setSource(this, resourceId)
@@ -91,6 +96,7 @@ public class ARActivity extends AppCompatActivity {
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                     TransformableNodeEx node = new TransformableNodeEx(arFragment.getTransformationSystem());
+                    node.setObjectFilePath(objectFilePath);
                     //node.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 0, 1f), 180));
                     node.setParent(anchorNode);
                     node.setRenderable(renderable);
@@ -141,6 +147,29 @@ public class ARActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ImageButton infoButton = findViewById(R.id.button_info);
+        infoButton.setVisibility(View.VISIBLE);
+        infoButton.setImageResource(R.drawable.info);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(transformableNode != null) {
+                    Uri uri;
+                    ContentUtils.provideAssets(ARActivity.this);
+                    uri = Uri.parse("assets://" + getPackageName() + transformableNode.getObjectFilePath());
+                    launchModelRendererActivity(uri);
+                }
+            }
+        });
+    }
+
+    private void launchModelRendererActivity(Uri uri) {
+        Intent intent = new Intent(getApplicationContext(), ModelActivity.class);
+        intent.putExtra("uri", uri.toString());
+        intent.putExtra("immersiveMode", "true");
+
+        startActivity(intent);
     }
 
     private static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
