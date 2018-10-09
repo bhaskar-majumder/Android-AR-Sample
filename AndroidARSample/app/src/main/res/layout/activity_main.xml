@@ -6,91 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".2"
-            android:text="Electronics and Furniture Products"
-            android:gravity="center_vertical"
-            android:textStyle="bold"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
         <LinearLayout
-            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <ImageButton
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/button_topleft"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="2sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginTop="0sp"
-                android:scaleType="fitCenter"
-                />
-            <ImageButton
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/button_topright"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="2sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginTop="0sp"
-                android:scaleType="fitCenter"
-                />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/ARList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></ListView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/ThreeDList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></ListView>
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <ImageButton
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/button_bottomleft"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="2sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginTop="0sp"
-                android:scaleType="fitCenter"
-                />
-            <ImageButton
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/button_bottomright"
-                android:layout_marginBottom="5sp"
-                android:layout_marginLeft="2sp"
-                android:layout_marginRight="5sp"
-                android:layout_marginTop="0sp"
-                android:scaleType="fitCenter"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!--<ImageButton-->
-        <!--android:id="@+id/imageButton1"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"/>-->
-
-    <!--<GridView xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/gridview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:columnWidth="200dp"-->
-        <!--android:numColumns="auto_fit"-->
-        <!--android:verticalSpacing="10dp"-->
-        <!--android:horizontalSpacing="10dp"-->
-        <!--android:stretchMode="columnWidth"-->
-        <!--android:gravity="center"-->
-    <!--/>-->
+    </TabHost>
 
 </android.support.constraint.ConstraintLayout>

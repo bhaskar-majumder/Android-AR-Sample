@@ -44,3 +44,8 @@ sceneform.asset('sampledata/models/model.obj',
         'default',
         'sampledata/models/model.sfa',
         'src/main/res/raw/model')
+
+sceneform.asset('sampledata/models/spider/model.obj',
+        'default',
+        'sampledata/models/spider/model.sfa',
+        'src/main/res/raw/spider')

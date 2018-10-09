@@ -1,48 +1,51 @@
 package com.example.bhaskar.android_ar_sample;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
-    private Context mContext;
+    private Context context;
+    private ArrayList<IListItem> listModelListItem = new ArrayList<>();
+    private LayoutInflater inflater = null;
 
-    public ImageAdapter(Context c) {
-        mContext = c;
+    public ImageAdapter(Context context, ArrayList<IListItem> list) {
+        this.context = context;
+        this.listModelListItem = list;
+        this.inflater = LayoutInflater.from(context);
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return listModelListItem.size();
     }
 
     public Object getItem(int position) {
-        return null;
+        return listModelListItem.get(position);
     }
 
     public long getItemId(int position) {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
+        View vi = convertView;
+        if(convertView == null)
+            vi = inflater.inflate(R.layout.list_view_entry, null);
 
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
+        TextView title = (TextView)vi.findViewById(R.id.modelText);
+        ImageView imageView = (ImageView)vi.findViewById(R.id.modelImage);
+
+        IListItem item = listModelListItem.get(position);
+
+        // Setting all values in listview
+        title.setText(item.getModelName());
+        imageView.setImageResource(item.getModelImageResourceId());
+        return vi;
     }
-
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.sample_1, R.drawable.sample_2};
 }

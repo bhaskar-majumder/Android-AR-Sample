@@ -22,25 +22,13 @@
         android:layout_gravity="bottom|end"
         android:background="@null"
         android:visibility="invisible"/>
-    <LinearLayout
-        android:layout_width="140dp"
+    <ImageButton
+        android:id="@+id/button_delete"
+        android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_gravity="bottom|center">
-        <ImageButton
-            android:id="@+id/button_delete"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|end"
-            android:background="@null"
-            android:visibility="invisible"/>
-        <ImageButton
-            android:id="@+id/button_info"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|right"
-            android:background="@null"
-            android:visibility="invisible"/>
-    </LinearLayout>
+        android:layout_gravity="bottom|center"
+        android:background="@null"
+        android:visibility="invisible"/>
 
 
 </FrameLayout>

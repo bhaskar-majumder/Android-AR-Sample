@@ -70,7 +70,6 @@ public class ARActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int resourceId = intent.getExtras().getInt("RESOURCE_ID");
-        final String objectFilePath = intent.getExtras().getString("OBJECT_FILE_PATH");
 
         ModelRenderable.builder()
                 .setSource(this, resourceId)
@@ -96,7 +95,6 @@ public class ARActivity extends AppCompatActivity {
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
 
                     TransformableNodeEx node = new TransformableNodeEx(arFragment.getTransformationSystem());
-                    node.setObjectFilePath(objectFilePath);
                     //node.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 0, 1f), 180));
                     node.setParent(anchorNode);
                     node.setRenderable(renderable);
@@ -148,20 +146,20 @@ public class ARActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton infoButton = findViewById(R.id.button_info);
-        infoButton.setVisibility(View.VISIBLE);
-        infoButton.setImageResource(R.drawable.info);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(transformableNode != null) {
-                    Uri uri;
-                    ContentUtils.provideAssets(ARActivity.this);
-                    uri = Uri.parse("assets://" + getPackageName() + transformableNode.getObjectFilePath());
-                    launchModelRendererActivity(uri);
-                }
-            }
-        });
+//        ImageButton infoButton = findViewById(R.id.button_info);
+//        infoButton.setVisibility(View.VISIBLE);
+//        infoButton.setImageResource(R.drawable.info);
+//        infoButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(transformableNode != null) {
+//                    Uri uri;
+//                    ContentUtils.provideAssets(ARActivity.this);
+//                    uri = Uri.parse("assets://" + getPackageName() + transformableNode.getObjectFilePath());
+//                    launchModelRendererActivity(uri);
+//                }
+//            }
+//        });
     }
 
     private void launchModelRendererActivity(Uri uri) {

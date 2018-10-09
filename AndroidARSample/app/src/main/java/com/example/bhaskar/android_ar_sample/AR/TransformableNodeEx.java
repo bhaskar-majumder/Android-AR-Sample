@@ -8,7 +8,6 @@ import com.google.ar.sceneform.ux.TransformationSystem;
 public class TransformableNodeEx extends TransformableNode {
 
     private float horizontalRotationAngle = 0;
-    private String objectFilePath;
 
     public TransformableNodeEx(TransformationSystem transformationSystem) {
         super(transformationSystem);
@@ -21,13 +20,5 @@ public class TransformableNodeEx extends TransformableNode {
 
     public float getHorizontalRotationAngle(){
         return horizontalRotationAngle;
-    }
-
-    public void setObjectFilePath(String path){
-        objectFilePath = path;
-    }
-
-    public String getObjectFilePath(){
-        return objectFilePath;
     }
 }
