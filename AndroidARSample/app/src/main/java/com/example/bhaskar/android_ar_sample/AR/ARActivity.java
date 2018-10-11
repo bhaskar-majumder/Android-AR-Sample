@@ -48,7 +48,8 @@ public class ARActivity extends AppCompatActivity {
     private Node.OnTouchListener onTransformableNodeTouchListener = new Node.OnTouchListener() {
         @Override
         public boolean onTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
-            Logger.getInstance().log(motionEvent.toString());
+            String pressureValue = " - Pressure = " + String.valueOf(motionEvent.getPressure());
+            Logger.getInstance().log(motionEvent.toString() + pressureValue);
             TransformableNodeEx node = (TransformableNodeEx)hitTestResult.getNode();
             if(node != null) {
                 transformableNode = node;

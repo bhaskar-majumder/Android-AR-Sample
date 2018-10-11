@@ -39,7 +39,7 @@
          "Orientation",
       ],
       collision: {},
-      file: "sampledata/models/model.obj",
+      file: "sampledata/models/chair/model.obj",
       name: "model",
       recenter: "root",
    },
