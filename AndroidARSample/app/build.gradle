@@ -35,11 +35,6 @@ dependencies {
 
 apply plugin: 'com.google.ar.sceneform.plugin'
 
-sceneform.asset('sampledata/models/andy.obj',
-        'default',
-        'sampledata/models/andy.sfa',
-        'src/main/res/raw/andy')
-
 sceneform.asset('sampledata/models/model.obj',
         'default',
         'sampledata/models/model.sfa',
@@ -49,3 +44,8 @@ sceneform.asset('sampledata/models/spider/model.obj',
         'default',
         'sampledata/models/spider/model.sfa',
         'src/main/res/raw/spider')
+
+sceneform.asset('sampledata/models/andy/andy.obj',
+        'default',
+        'sampledata/models/andy/andy.sfa',
+        'src/main/assets/andy')

@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configure3DPreviewTab(TabHost host){
-        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy.obj"));
-        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/model.obj"));
+        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy/andy.obj"));
+        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/chair/model.obj"));
         listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_3, "Spider", "/models/spider/model.obj"));
 
         TabHost.TabSpec spec = host.newTabSpec("Tab Two");
