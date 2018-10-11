@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureARTab(TabHost host){
         listOfARObjects.add(new ARModelListItem(R.drawable.sample_1, "Andy", R.raw.andy));
-        listOfARObjects.add(new ARModelListItem(R.drawable.sample_2, "Chair", R.raw.model));
+        listOfARObjects.add(new ARModelListItem(R.drawable.sample_2, "Chair", R.raw.chair));
 
         TabHost.TabSpec spec = host.newTabSpec("Tab One");
         spec.setContent(R.id.tab1);
