@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final int PERMISSION_WRITE_EXTERNAL_STORAGE = 101;
 
+    private final int AR_ACTIVITY_CODE = 1;
+    private final int THREE_D_MODEL_ACTIVITY_CODE = 2;
+    private final int IMAGE_VIEWER_ACTIVITY_CODE = 3;
+
     private boolean permissionsGranted = false;
     ArrayList<IListItem> listOfARObjects = new ArrayList<>();
     ArrayList<IListItem> listOf3DObjects = new ArrayList<>();
@@ -105,14 +109,15 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator("Model Images");
         host.addTab(spec);
         ListView listView = findViewById(R.id.ImageList);
-        ImageAdapter adapter = new ImageAdapter(this, listOfModelImages, ImageAdapter.ListItemType.Image);
+        ImageAdapter adapter = new ImageAdapter(this, listOfModelImages, ImageAdapter.ListItemType.ImageAndText);
         listView.setAdapter(adapter);
-//        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener(){
-//            public void onItemClick(AdapterView parent, View view, int position, long id){
-//                ImageModelListItem item = (ImageModelListItem) listOfARObjects.get(position);
-//            }
-//        };
-//        listView.setOnItemClickListener(listener);
+        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView parent, View view, int position, long id){
+                ImageModelListItem item = (ImageModelListItem) listOfModelImages.get(position);
+                launchImageViewerActivity(item.getModelImageResourceId());
+            }
+        };
+        listView.setOnItemClickListener(listener);
     }
 
     @Override
@@ -133,7 +138,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void startARActivity(int resourceId){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(IMAGE_VIEWER_ACTIVITY_CODE == requestCode){
+            TabHost host = findViewById(R.id.tabHost);
+            host.setCurrentTab(2);
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
+    private void startARActivity(int resourceId){
         if(permissionsGranted) {
             Intent intent = new Intent(this, ARActivity.class);
             intent.putExtra("RESOURCE_ID", resourceId);
@@ -143,11 +163,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void launchImageViewerActivity(int imageResourceId){
+        Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
+        intent.putExtra("imageResourceId", imageResourceId);
+        this.startActivityForResult(intent, IMAGE_VIEWER_ACTIVITY_CODE);
+    }
+
     private void launchModelRendererActivity(Uri uri) {
         Intent intent = new Intent(getApplicationContext(), ModelActivity.class);
         intent.putExtra("uri", uri.toString());
         intent.putExtra("immersiveMode", "true");
-
         startActivity(intent);
     }
 }

@@ -54,15 +54,16 @@ public class ImageAdapter extends BaseAdapter {
             IListItem item = iListItems.get(position);
             title.setText(item.getModelName());
             imageView.setImageResource(item.getModelImageResourceId());
-        }else if(this.listItemType == ListItemType.Image){
-            if (convertView == null) {
-                vi = inflater.inflate(R.layout.list_view_entry_only_image, null);
-            }
-
-            ImageView imageView = vi.findViewById(R.id.modelOnlyImage);
-            IListItem item = iListItems.get(position);
-            imageView.setImageResource(item.getModelImageResourceId());
         }
+//        else if(this.listItemType == ListItemType.Image){
+//            if (convertView == null) {
+//                vi = inflater.inflate(R.layout.list_view_entry_only_image, null);
+//            }
+//
+//            ImageView imageView = vi.findViewById(R.id.modelOnlyImage);
+//            IListItem item = iListItems.get(position);
+//            imageView.setImageResource(item.getModelImageResourceId());
+//        }
 
         return vi;
     }
