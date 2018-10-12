@@ -11,22 +11,30 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<IListItem> listModelListItem = new ArrayList<>();
-    private LayoutInflater inflater = null;
+    public enum ListItemType{
+        None,
+        Image,
+        ImageAndText
+    }
 
-    public ImageAdapter(Context context, ArrayList<IListItem> list) {
+    private Context context;
+    private ArrayList<IListItem> iListItems = new ArrayList<>();
+    private LayoutInflater inflater = null;
+    private ListItemType listItemType = ListItemType.None;
+
+    public ImageAdapter(Context context, ArrayList<IListItem> list, ListItemType listItemType) {
         this.context = context;
-        this.listModelListItem = list;
+        this.iListItems = list;
         this.inflater = LayoutInflater.from(context);
+        this.listItemType = listItemType;
     }
 
     public int getCount() {
-        return listModelListItem.size();
+        return iListItems.size();
     }
 
     public Object getItem(int position) {
-        return listModelListItem.get(position);
+        return iListItems.get(position);
     }
 
     public long getItemId(int position) {
@@ -35,17 +43,27 @@ public class ImageAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
-        if(convertView == null)
-            vi = inflater.inflate(R.layout.list_view_entry, null);
+        if(this.listItemType == ListItemType.ImageAndText) {
+            if (convertView == null) {
+                vi = inflater.inflate(R.layout.list_view_entry, null);
+            }
 
-        TextView title = (TextView)vi.findViewById(R.id.modelText);
-        ImageView imageView = (ImageView)vi.findViewById(R.id.modelImage);
+            TextView title = vi.findViewById(R.id.modelText);
+            ImageView imageView = vi.findViewById(R.id.modelImage);
 
-        IListItem item = listModelListItem.get(position);
+            IListItem item = iListItems.get(position);
+            title.setText(item.getModelName());
+            imageView.setImageResource(item.getModelImageResourceId());
+        }else if(this.listItemType == ListItemType.Image){
+            if (convertView == null) {
+                vi = inflater.inflate(R.layout.list_view_entry_only_image, null);
+            }
 
-        // Setting all values in listview
-        title.setText(item.getModelName());
-        imageView.setImageResource(item.getModelImageResourceId());
+            ImageView imageView = vi.findViewById(R.id.modelOnlyImage);
+            IListItem item = iListItems.get(position);
+            imageView.setImageResource(item.getModelImageResourceId());
+        }
+
         return vi;
     }
 }

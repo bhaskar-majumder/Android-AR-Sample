@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean permissionsGranted = false;
     ArrayList<IListItem> listOfARObjects = new ArrayList<>();
     ArrayList<IListItem> listOf3DObjects = new ArrayList<>();
+    ArrayList<IListItem> listOfModelImages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         host.setup();
         configureARTab(host);
         configure3DPreviewTab(host);
+        configureImageTab(host);
     }
 
     private void configureARTab(TabHost host){
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator("AR Models");
         host.addTab(spec);
         ListView listView = findViewById(R.id.ARList);
-        ImageAdapter adapter = new ImageAdapter(this, listOfARObjects);
+        ImageAdapter adapter = new ImageAdapter(this, listOfARObjects, ImageAdapter.ListItemType.ImageAndText);
         listView.setAdapter(adapter);
         AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View view, int position, long id){
@@ -67,17 +69,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configure3DPreviewTab(TabHost host){
-        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy/andy.obj"));
-        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/chair/model.obj"));
+        //listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy/andy.obj"));
+        //listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/chair/model.obj"));
         listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_3, "Spider", "/models/spider/model.obj"));
 
         TabHost.TabSpec spec = host.newTabSpec("Tab Two");
         spec.setContent(R.id.tab2);
         spec.setIndicator("3D Models Preview");
         host.addTab(spec);
-
         ListView listView = findViewById(R.id.ThreeDList);
-        ImageAdapter adapter = new ImageAdapter(this, listOf3DObjects);
+        ImageAdapter adapter = new ImageAdapter(this, listOf3DObjects, ImageAdapter.ListItemType.ImageAndText);
         listView.setAdapter(adapter);
         AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View view, int position, long id){
@@ -89,6 +90,29 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         listView.setOnItemClickListener(listener);
+    }
+
+    private void configureImageTab(TabHost host){
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_1, "Andy"));
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_2, "Chair"));
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_3, "Spider"));
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_1, "Andy"));
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_2, "Chair"));
+        listOfModelImages.add(new ImageModelListItem(R.drawable.sample_3, "Spider"));
+
+        TabHost.TabSpec spec = host.newTabSpec("Tab Three");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Model Images");
+        host.addTab(spec);
+        ListView listView = findViewById(R.id.ImageList);
+        ImageAdapter adapter = new ImageAdapter(this, listOfModelImages, ImageAdapter.ListItemType.Image);
+        listView.setAdapter(adapter);
+//        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener(){
+//            public void onItemClick(AdapterView parent, View view, int position, long id){
+//                ImageModelListItem item = (ImageModelListItem) listOfARObjects.get(position);
+//            }
+//        };
+//        listView.setOnItemClickListener(listener);
     }
 
     @Override
