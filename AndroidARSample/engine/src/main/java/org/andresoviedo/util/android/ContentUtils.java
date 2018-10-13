@@ -64,8 +64,10 @@ public class ContentUtils {
     public static void provideAssets(Activity activity) {
         documentsProvided.clear();
         try {
-            for (String document : activity.getAssets().list("models")) {
-                documentsProvided.put(document, Uri.parse("assets://assets/models/" + document));
+            for (String model : activity.getAssets().list("models")) {
+                for(String document : activity.getAssets().list("models/" + model)) {
+                    documentsProvided.put(document, Uri.parse("assets://assets/models/" + model + "/" + document));
+                }
             }
         } catch (IOException ex) {
             Log.e("ContentUtils", "Error listing assets from models folder", ex);

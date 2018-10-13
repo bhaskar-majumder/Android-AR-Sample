@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void configureARTab(TabHost host){
         listOfARObjects.add(new ARModelListItem(R.drawable.sample_1, "Andy", R.raw.andy));
         listOfARObjects.add(new ARModelListItem(R.drawable.sample_2, "Chair", R.raw.chair));
+        listOfARObjects.add(new ARModelListItem(R.drawable.sample_3, "Spider", R.raw.spider));
 
         TabHost.TabSpec spec = host.newTabSpec("Tab One");
         spec.setContent(R.id.tab1);
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configure3DPreviewTab(TabHost host){
-        //listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy/andy.obj"));
-        //listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/chair/model.obj"));
+        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_1, "Andy", "/models/andy/andy.obj"));
+        listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_2, "Chair", "/models/chair/model.obj"));
         listOf3DObjects.add(new ThreeDModelListItem(R.drawable.sample_3, "Spider", "/models/spider/model.obj"));
 
         TabHost.TabSpec spec = host.newTabSpec("Tab Two");
